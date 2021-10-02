@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredTenantController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,5 @@ Route::get('/', function () {
     ]);
 });
 
-
-
-require __DIR__.'/auth.php';
+Route::get('/register', [RegisteredTenantController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredTenantController::class, 'store'])->name('signup');
