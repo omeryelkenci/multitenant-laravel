@@ -32,4 +32,11 @@
                 'password' => ['required', 'confirmed', Password::defaults()]
             ];
         }
+
+        public function prepareForValidation()
+        {
+            $this->merge([
+                'domain' => $this->domain . '.' . config('tenancy.central_domains')[0]
+            ]);
+        }
     }
