@@ -23,7 +23,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::get('/register', [RegisteredTenantController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredTenantController::class, 'store'])->name('signup');
