@@ -26,7 +26,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
-Route::middleware(['web', InitializeTenancyByDomain::class, PreventAccessFromCentralDomains::class])->group(function () {
+Route::group(['as' => 'tenant.', 'middleware' => ['web', InitializeTenancyByDomain::class, PreventAccessFromCentralDomains::class]], function () {
     Route::get('/', function () {
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
@@ -39,9 +39,9 @@ Route::middleware(['web', InitializeTenancyByDomain::class, PreventAccessFromCen
 
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest');
 
-//  Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
+    //  Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
 
-//  Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
+    //  Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
 
     Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->middleware('guest')->name('password.request');
 

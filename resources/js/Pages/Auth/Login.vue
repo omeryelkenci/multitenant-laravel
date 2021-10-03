@@ -76,7 +76,7 @@ export default {
 
     methods: {
         submit() {
-            this.form.post(this.route('login'), {
+            this.form.post(this.route('tenant.login'), {
                 onFinish: () => this.form.reset('password'),
             })
         }

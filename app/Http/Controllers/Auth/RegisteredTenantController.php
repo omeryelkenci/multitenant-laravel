@@ -31,5 +31,7 @@ class RegisteredTenantController extends Controller
     {
         $tenant = Tenant::create($request->validated());
         $tenant->createDomain(['domain' => $request->domain]);
+
+        return Inertia::location(tenant_route($tenant->domains->first()->domain, 'tenant.login'));
     }
 }

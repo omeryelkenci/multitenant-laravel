@@ -13,7 +13,7 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <BreezeNavLink :href="route('tenant.dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </BreezeNavLink>
                             </div>
@@ -36,7 +36,7 @@
                                     </template>
 
                                     <template #content>
-                                        <BreezeDropdownLink :href="route('logout')" method="post" as="button">
+                                        <BreezeDropdownLink :href="route('tenant.logout')" method="post" as="button">
                                             Log Out
                                         </BreezeDropdownLink>
                                     </template>
@@ -59,7 +59,7 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <BreezeResponsiveNavLink :href="route('tenant.dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </BreezeResponsiveNavLink>
                     </div>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <BreezeResponsiveNavLink :href="route('logout')" method="post" as="button">
+                            <BreezeResponsiveNavLink :href="route('tenant.logout')" method="post" as="button">
                                 Log Out
                             </BreezeResponsiveNavLink>
                         </div>
