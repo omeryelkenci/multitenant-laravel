@@ -8,9 +8,7 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                    <BreezeApplicationLogo class="block h-9 w-auto" />
-                                </Link>
+                                {{ $page.props.tenant.info.company }}
                             </div>
 
                             <!-- Navigation Links -->

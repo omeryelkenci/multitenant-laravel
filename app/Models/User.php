@@ -43,11 +43,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function booted()
-    {
-        // Hasing user password
-        static::creating(function ($user) {
-            $user->password = Hash::make($user->value);
-        });
-    }
+    
 }
