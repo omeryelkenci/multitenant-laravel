@@ -31,6 +31,7 @@ class TenancyServiceProvider extends ServiceProvider
 
                     // Your own jobs to prepare the tenant.
                     // Provision API keys, create S3 buckets, anything you want!
+                    App\Jobs\RegisterTenantAdmin::class, // Create tenant admin job
 
                 ])->send(function (Events\TenantCreated $event) {
                     return $event->tenant;
