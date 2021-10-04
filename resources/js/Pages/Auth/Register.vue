@@ -5,7 +5,7 @@
 
   <form @submit.prevent="submit">
     <div>
-      <BreezeLabel for="company" value="Company" />
+      <BreezeLabel for="company" value="Restaurant Name" />
       <BreezeInput
         id="company"
         type="text"
@@ -15,22 +15,6 @@
         autofocus
         autocomplete="company"
       />
-    </div>
-
-    <div class="mt-4">
-      <BreezeLabel for="domain" value="Domain" />
-      <div class="flex base-line">
-        <BreezeInput
-          id="domain"
-          type="text"
-          class="mt-1 block w-2/3"
-          v-model="form.domain"
-          required
-          autofocus
-          autocomplete="domain"
-        />
-        <BreezeLabel class="w-1/3 mt-3 ml-4" for="domain" value=".localhost" />
-      </div>
     </div>
 
     <div class="mt-4">
@@ -118,7 +102,6 @@ export default {
     return {
       form: this.$inertia.form({
         company: "",
-        domain: "",
         name: "",
         email: "",
         password: "",

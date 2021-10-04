@@ -15,7 +15,7 @@
                 Resend Verification Email
             </BreezeButton>
 
-            <Link :href="route('tenant.logout')" method="post" as="button" class="underline text-sm text-gray-600 hover:text-gray-900">Log Out</Link>
+            <Link :href="route('logout')" method="post" as="button" class="underline text-sm text-gray-600 hover:text-gray-900">Log Out</Link>
         </div>
     </form>
 </template>

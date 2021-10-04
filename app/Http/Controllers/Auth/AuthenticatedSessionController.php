@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class AuthenticatedSessionController extends Controller
@@ -33,11 +34,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        // Login to central database
         $request->authenticate();
-
         $request->session()->regenerate();
+        $user = Auth::user();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Login to tenant database
+        if ($user->userTenants) {
+            $tenant = Tenant::find($user->userTenants->first()->tenant_id);
+            tenancy()->initialize($tenant);
+            $request->authenticate();
+            $request->session()->regenerate();
+        } else {
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        return Inertia::location(route('tenant.dashboard', $tenant));
     }
 
     /**
@@ -54,6 +68,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return Inertia::location(route('tenant.login'));
+        $request->session()->flush();
+
+        return Inertia::location(route('login'));
     }
 }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterTenantRequest;
 use App\Models\Tenant;
+use App\Models\TenantUser;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class RegisteredTenantController extends Controller
@@ -30,8 +34,17 @@ class RegisteredTenantController extends Controller
     public function store(RegisterTenantRequest $request)
     {
         $tenant = Tenant::create($request->validated());
-        $tenant->createDomain(['domain' => $request->domain]);
+        $user = User::create($tenant->getAttributes());
 
-        return Inertia::location(tenant_route($tenant->domains->first()->domain, 'tenant.login'));
+        TenantUser::create([
+            'user_id' => $user->id,
+            'tenant_id' => $tenant->id
+        ]);
+
+        tenancy()->initialize($tenant);
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return Inertia::location(route('tenant.dashboard', $tenant));
+        }
     }
 }
